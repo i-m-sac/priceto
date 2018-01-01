@@ -1,9 +1,18 @@
 var express = require('express');
-var router = express.Router();
+let path = require('path'),
+  hotelQueryAPIManager = require(path.resolve('./managers/hotelQueryAPIManager')),
+  router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
-});
+router.get('/', async function(req, res, next) {
+  try {
+    let princeInfo = await hotelQueryAPIManager.getHotelPrice(query);
+    res.status(princeInfo.status).send(princeInfo);
+  } catch (error){
+    res.status(error.status).send(error.error);
+  }
+}
 
-module.exports = router;
+module.exports = {
+  router : router,
+  endpoint : 'api/hotel'
+};
