@@ -1,18 +1,19 @@
 var express = require('express');
 let path = require('path'),
-  hotelQueryAPIManager = require(path.resolve('./managers/hotelQueryAPIManager')),
-  router = express.Router();
+    HotelQueryAPIManager = require(path.resolve('./managers/hotelQueryAPIManager')),
+    hotelQueryAPIManager = new HotelQueryAPIManager(),
+    router = express.Router();
 
-router.get('/', async function(req, res, next) {
-  try {
-    let princeInfo = await hotelQueryAPIManager.getHotelPrice(query);
-    res.status(princeInfo.status).send(princeInfo);
-  } catch (error){
-    res.status(error.status).send(error.error);
-  }
-}
+router.post('/', async(req, res) => {
+    try {
+        let princeInfo = await hotelQueryAPIManager.getHotelPrice(req.body);
+        res.status(princeInfo.status).send(princeInfo);
+    } catch (error){
+        res.status(error.status || '400').send(error.error);
+    }
+});
 
 module.exports = {
-  router : router,
-  endpoint : 'api/hotel'
+    router : router,
+    endpoint : '/api/hotel'
 };

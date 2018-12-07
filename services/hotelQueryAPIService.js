@@ -18,8 +18,9 @@ class HotelQueryAPIService{
     createHotelPricingURL(query){
         let regex = /[.,]/g;
         query.hotelName = query.hotelName.replace(regex, "");
-        let checkOutDate = moment(query.checkInDate).add(query.duration, 'days');
-        let url = hotelQueryURL.replace('@hotelNameAndAddress@', query.hotetName)
+        let checkOutDate = moment(query.checkInDate);
+        console.log('CHeckOut', checkOutDate);
+        let url = hotelQueryURL.replace('@hotelNameAndAddress@', query.hotelName)
             .replace(' ', '%20')
             .replace('@checkInDate@', query.checkInDate)
             .replace('@checkOutDate@', checkOutDate)
@@ -28,3 +29,5 @@ class HotelQueryAPIService{
         return url;
     }
 }
+
+module.exports = HotelQueryAPIService;

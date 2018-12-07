@@ -1,15 +1,12 @@
 let path = require('path'),
-    hotelQueryAPIService = require(path.resolve('./services/hotelQueryAPIService'));
+    HotelQueryAPIService = require(path.resolve('./services/hotelQueryAPIService')),
+    hotelQueryAPIService = new HotelQueryAPIService();
 
-class HotelQueryAPIService{
-    async getHotelPrice(query){
+
+class HotelQueryAPIManager{
+    async getHotelPrice(reqBody){
         try{
-            let queryObj = {
-                fromDate : query.params.fromDate,
-                toDate : query.params.toDate,
-                name : query.params.name
-            };
-            let priceInfo = await hotelQueryAPIService.getHotelPrice(queryObj);
+            let priceInfo = await hotelQueryAPIService.getHotelPricing(reqBody);
             return ({
                 status : 200,
                 data : priceInfo
@@ -22,3 +19,5 @@ class HotelQueryAPIService{
         }
     }
 }
+
+module.exports = HotelQueryAPIManager;

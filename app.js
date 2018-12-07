@@ -6,18 +6,20 @@ var logger = require('morgan');
 
 var fs = require('fs'),
   path = require('path');
-
-module.exports = function(server) {
-  fs.readdirSync(path.resolve('./roures')).filter(function(file) {
-    return file.indexOf('Controller.js') !== -1;
-  }).forEach(function (file) {
-    var controller = require(path.resolve('./routes/' + file));
-    server.use(controller.endpoint, controller.router);
-  });
-};
-
-
 var app = express();
+
+let bodyParser = require('body-parser');
+
+
+app.use(bodyParser.json({limit: '1mb'}));
+app.use(bodyParser.urlencoded({limit: '1mb', extended: true}));
+fs.readdirSync(path.resolve('./routes')).filter(function(file) {
+    return file;
+}).forEach(function (file) {
+    var controller = require(path.resolve('./routes/' + file));
+    app.use(controller.endpoint, controller.router);
+});
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
