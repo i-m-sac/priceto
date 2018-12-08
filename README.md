@@ -3,7 +3,6 @@ Search for hotel prices in a Woo
 
 
 To run the code
-   -  check out the branch develop
    -  npm install
    -  npm start
    
