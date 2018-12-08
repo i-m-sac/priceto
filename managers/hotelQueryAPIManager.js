@@ -4,6 +4,11 @@ let path = require('path'),
 
 
 class HotelQueryAPIManager{
+    /**
+     * Function to get hotel price by invoking service layer
+     * @param reqBody {Object}
+     * @returns {Promise<{status: number, data}>}
+     */
     async getHotelPrice(reqBody){
         try{
             let priceInfo = await hotelQueryAPIService.getHotelPricing(reqBody);

@@ -4,6 +4,7 @@ let path = require('path'),
     hotelQueryAPIManager = new HotelQueryAPIManager(),
     router = express.Router();
 
+//Should have been a get request
 router.post('/', async(req, res) => {
     try {
         let princeInfo = await hotelQueryAPIManager.getHotelPrice(req.body);
