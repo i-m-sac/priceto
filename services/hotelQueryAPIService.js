@@ -58,7 +58,9 @@ class HotelQueryAPIService{
                     if(childElement.children[0] && childElement.children[0].children[0].attribs['data-dp']){
                         rateInfo.id = counter++;
                         rateInfo.pricePerNight = childElement.children[0].children[0].attribs['data-dp'];
-                        rateInfo.totalPrice = "₹ " + rateInfo.pricePerNight.slice(2).replace(',', '') * query.duration;
+                        let pricePerNight = rateInfo.pricePerNight.match(/\d+/gm)
+                        pricePerNight = parseInt(pricePerNight.join(''))
+                        rateInfo.totalPrice = "₹" + pricePerNight * query.duration;
                         rateInfo.siteName = childElement.children[0].children[0].children[1].children[2].children[0].children[0].data;
                         rateInfo.siteURL = childElement.children[0].children[0].attribs['href'];
                         hotelRateInfo.push(rateInfo);
@@ -72,7 +74,9 @@ class HotelQueryAPIService{
                                     rateInfo = {};
                                     rateInfo.id = counter++;
                                     rateInfo.pricePerNight = subChildElement.children[0].attribs['data-dp'];
-                                    rateInfo.totalPrice = "₹ " + rateInfo.pricePerNight.slice(2).replace(',', '') * query.duration;
+                                    let pricePerNight = rateInfo.pricePerNight.match(/\d+/gm)
+                                    pricePerNight = parseInt(pricePerNight.join(''))
+                                    rateInfo.totalPrice = "₹" + pricePerNight * query.duration;
                                     rateInfo.siteName = subChildElement.children[0].children[1].children[2].children[0].children[0].data;
                                     rateInfo.siteURL = subChildElement.children[0].attribs['href'];
                                     hotelRateInfo.push(rateInfo);
